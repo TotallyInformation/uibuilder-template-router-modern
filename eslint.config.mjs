@@ -1,3 +1,8 @@
+/** Lint rules for node-red-contrib-uibuilder front-end JavaScript
+ * @version 2026-11-06
+ * @author Julian Knight (Totally Information)
+ */
+
 import { defineConfig } from 'eslint/config'
 import js from '@eslint/js'
 import globals from 'globals'
@@ -5,7 +10,14 @@ import jsdoc from 'eslint-plugin-jsdoc'
 import stylistic from '@stylistic/eslint-plugin'
 import html from 'eslint-plugin-html'
 
-// Shared rules
+// ! Alter ecma versions to suite your front-end
+const jsVersion = 2022
+
+// ? NOTE: Assumes that your front-end code is in the ./src folder - change if needed
+// ?       ./api & ./routes should contain node.js code
+
+// #region --- Shared rules ---
+const nodeVersion = '22.9.0' // Minimum Node version to support (matches Node-RED minimum)
 const jsdocRules = {
     'jsdoc/check-alignment': 'off',
     // "jsdoc/check-indentation": ["warn", {"excludeTags":['example', 'description']}],
@@ -21,6 +33,8 @@ const jsdocRules = {
     'jsdoc/no-undefined-types': ['error', {
         definedTypes: ['JQuery', 'NodeListOf', 'ProxyHandler'],
     }],
+    'jsdoc/reject-any-type': 'off',
+    'jsdoc/reject-function-type': 'off',
     'jsdoc/tag-lines': 'off',
 }
 const stylisticRules = {
@@ -65,23 +79,20 @@ const stylisticRules = {
     }],
 }
 const generalRules = {
-    'new-cap': 'error',
-    'no-else-return': 'error',
-    'no-empty': ['error', {
-        allowEmptyCatch: true,
-    }],
+    'no-empty': ['error', { allowEmptyCatch: true, }],
     'no-unused-vars': 'off',
     'no-useless-escape': 'off',
     'no-var': 'warn',
     'prefer-const': 'error',
 }
+// #endregion --- --- ---
 
 export default defineConfig([
-    // Apply to all JavaScript files
+    // Apply to front-end JavaScript script (IIFE) files
     {
-        files: ['**/*.js', '**/*.html'],
+        files: ['src/**/*.js', 'src/**/*.cjs', 'src/**/*.html'],
         languageOptions: {
-            ecmaVersion: 2022,
+            ecmaVersion: jsVersion,
             sourceType: 'script', // Use script rather than ES modules
             globals: {
                 ...globals.browser,
@@ -111,11 +122,11 @@ export default defineConfig([
         },
     },
 
-    // Specific rules for ESM files
+    // Apply to front-end JavaScript modern module (ESM) files
     {
-        files: ['**/*.mjs'],
+        files: ['src/**/*.mjs'],
         languageOptions: {
-            ecmaVersion: 2022,
+            ecmaVersion: jsVersion,
             sourceType: 'module', // Config files can use ES modules
             globals: {
                 ...globals.browser,

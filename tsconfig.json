@@ -5,10 +5,14 @@
     "noEmit": true,
     "strict": true,
     "target": "ES2020",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "baseUrl": "./src",
-    "typeRoots": ["./types"]
+    "module": "ES2020",
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["types", "src/**/*.js"]
+  "include": [
+    "types/**/*.d.ts",
+    "src/**/*.js",
+    "src/**/*.cjs",
+    "src/**/*.mjs"
+  ]
 }
