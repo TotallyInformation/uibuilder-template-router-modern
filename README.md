@@ -1,30 +1,38 @@
-# uib-template-test
+# uib-template-router-modern
 
-This is a test external template for node-red-contrib-uibuilder.
+This is an external template for node-red-contrib-uibuilder.
 
-## Installation
+It is designed to show off the use of UIBUILDER's single-page-app (SPA) front-end router library.
 
-1. Add a suitable uibuilder node to your Node-RED flow and set the `url` then deploy.
-2. Open the uibuilder node in the Editor and choose "Simple ES Module Template (external)" from the Template dropdown.
-3. Click the "Load" button.
+UIBUILDER instances using this template allow you to easily replicate similar interfaces to Node-RED's Dashboard's.
 
-The template will be downloaded and installed into the node's instance folder and is then ready to use. You can examine the files in the Files tab or open the instance folder in your code editor.
+Unlike the Dashboards though, you are not restricted to SPA only interfaces. Nor are you restricted to their front-end frameworks.
+
+## Editing
+
+While you _can_ edit the files and folders in this template when it has been deployed to your uibuilder node instance within the node, it is recommended to use a proper web IDE such as VSCodium or Microsoft VSCode.
+
+If using VSC or similar, you can run `npm install` in the instance root folder. This will install all of the developer dependency packages that will help with code quality by using the ESLINT package with standardised settings.
+
+## Using a front-end framework requiring a build step
+
+If you choose to use something like Svelte or REACT which require build steps, make sure to add suitable scripts for running the build to the package.json `scripts` property. These will then show up (after a node-red restart) in the uibuilder node's "Scripts" tab and you can run them from there.
 
 ## Updates
 
 Once loaded into your uibuilder instance, no updattes will be made to the template files by uibuilder.
 
-If you want to update the template, you can do so by re-doing the installation. Of course, this will overwrite all files of the same name so if you want to retain anything you have done, make a copy first.
+If you want to update the template, you can do so by re-doing the application of the template from within the uibuilder node. Of course, this will _overwrite_ all files of the same name so if you want to retain anything you have done, make a copy first.
 
 ## Content
 
-The main content of the template will be found in the `src` folder. This is where you will find the HTML, CSS and JavaScript files that make up the template and defines the user interface for uibuilder.
+The main content of the template is in the `src` folder. This is where you will find the HTML, CSS and JavaScript files that make up the template and defines the user interface for uibuilder.
 
 A uibuilder node will use the `src` folder by default. However, you can use a different folder if you prefer. If you add a build step for more complex processing, you would typically build the output into the `dist` folder and then set the uibuilder node to use that folder instead.
 
 If you need any development npm libraries, you can add them as normal to the `package.json` file. The libraries will not be installed by default, you need to run `npm install` in the template folder to install them.
 
-You should not include any runtime libraries in `package.json` as they will be ignored by uibuilder. Instead, use the "Libraries" tab in the uibuilder node to add any runtime libraries that you need.
+You _should not include any runtime libraries_ in `package.json` as they will be ignored by uibuilder. Instead, use the "Libraries" tab in the uibuilder node to add any runtime libraries that you need.
 
 ## UI
 
@@ -44,16 +52,17 @@ In addition, the `more` div uses uibuilder's `uib-topic` special attribute which
 
 ## Folder Structure
 
-* The root folder contains the `package.json`, `README.md`, and LICENSE files. It can contain other files as needed.
+* The instance root folder contains the `package.json`, `README.md`, and LICENSE files. It can contain other files as needed.
 * `src` - The main source folder. This is where you will find the HTML, CSS and JavaScript files that make up the template. It is the default folder used by uibuilder. Note `*.mjs` is used for JavaScript files since ES Modules are used. You don't have to do that but it makes it easier to remember which files are loaded as JS Modules.
-* `dist` - The distribution folder. This is where you would build your output files if you are using a build step. By default, this template has no build step.
+  * In this template, the `src/routes` folder is used to keep the code for front-end route code.
+* `dist` - The distribution folder. This is where you would build your output files if you are using a build step. By default, this template has no build step and so that folder would be empty.
 * `api` - Optional API folder. This is where you would put any server-side code that you need to run.
 * `routes` - Optional routes folder. This is where you would put any server-side ExpressJS route functions. These could include server-side templates as well as dynamic routing URLs.
 * `types` - Contains typescript definition files (`*.d.ts`) for the uibuilder client library. This is not used by uibuilder but can be used by your IDE to provide type checking and auto-completion for the uibuilder client library. This is useful if you are using TypeScript or JavaScript with type checking enabled. Remember to update these for new uibuilder versions.
 
 Other folders can be added as needed for your own code.
 
-Only a single folder is used by uibuilder as the resources folder. `src` by defult. Sub-folder are also served and can be used as desired.
+Only a single folder is used by uibuilder as the resources folder. `src` by defult. Sub-folders are also served and can be used as desired.
 
 ## Multiple HTML pages
 
